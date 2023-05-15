@@ -21,35 +21,35 @@
  * SOFTWARE.
  */
 
-package space.quinoaa.starch.gui.component;
+package space.quinoaa.starch.gui.component.base;
 
-import lombok.Getter;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.InventoryView;
-import space.quinoaa.starch.gui.component.grid.Painter;
-import space.quinoaa.starch.gui.component.slots.SlotSet;
+import org.bukkit.inventory.ItemStack;
+import space.quinoaa.starch.gui.component.Component;
 
-public abstract class Component {
-	@Getter private Painter painter;
-	@Getter private SlotSet slots;
+public class Button extends Component {
+	final ItemProvider itemProvider;
+	final ClickHandler clickHandler;
 
-	public final void init(Painter painter){
-		if(this.slots != null) throw new IllegalStateException("Already initialized");
-
-		this.painter = painter;
-		this.slots = painter.getSlots();
-		init();
+	public Button(ItemStack item, ClickHandler clickHandler) {
+		this.itemProvider = i->item;
+		this.clickHandler = clickHandler;
 	}
 
-	public abstract void init();
-
-	public abstract void onComponentClick(InventoryClickEvent event, int slotIndex);
-
-	public void onOpen(Player player, InventoryView view) { }
-
-	public void onClose(InventoryCloseEvent event){ }
+	public Button(ItemProvider itemProvider, ClickHandler clickHandler) {
+		this.itemProvider = itemProvider;
+		this.clickHandler = clickHandler;
+	}
 
 
+	@Override
+	public void init() {
+		getPainter().getSlots().iterateIndexes(index->getPainter().setItem(index, itemProvider.getItemStack(index)));
+	}
+
+	@Override
+	public void onComponentClick(InventoryClickEvent event, int slotIndex) {
+		event.setCancelled(true);
+		clickHandler.onClick(event, slotIndex);
+	}
 }

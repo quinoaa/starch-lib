@@ -21,35 +21,15 @@
  * SOFTWARE.
  */
 
-package space.quinoaa.starch.gui.component;
+package space.quinoaa.starch.gui.component.base;
 
-import lombok.Getter;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.InventoryView;
-import space.quinoaa.starch.gui.component.grid.Painter;
-import space.quinoaa.starch.gui.component.slots.SlotSet;
 
-public abstract class Component {
-	@Getter private Painter painter;
-	@Getter private SlotSet slots;
+public interface ClickHandler {
 
-	public final void init(Painter painter){
-		if(this.slots != null) throw new IllegalStateException("Already initialized");
-
-		this.painter = painter;
-		this.slots = painter.getSlots();
-		init();
-	}
-
-	public abstract void init();
-
-	public abstract void onComponentClick(InventoryClickEvent event, int slotIndex);
-
-	public void onOpen(Player player, InventoryView view) { }
-
-	public void onClose(InventoryCloseEvent event){ }
-
+	/**
+	 * @param index index of the slot in {@link space.quinoaa.starch.gui.component.slots.SlotSet}
+	 */
+	void onClick(InventoryClickEvent event, int index);
 
 }

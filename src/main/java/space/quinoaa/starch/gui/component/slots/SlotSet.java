@@ -23,6 +23,8 @@
 
 package space.quinoaa.starch.gui.component.slots;
 
+import java.util.function.IntConsumer;
+
 public interface SlotSet {
 
 	int getSlot(int index);
@@ -33,4 +35,7 @@ public interface SlotSet {
 
 	int getSlotCount();
 
+	default void iterateIndexes(IntConsumer indexConsumer){
+		for (int i = 0; i < getSlotCount(); i++) indexConsumer.accept(i);
+	}
 }

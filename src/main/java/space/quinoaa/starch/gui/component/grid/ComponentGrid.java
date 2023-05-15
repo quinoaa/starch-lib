@@ -76,7 +76,10 @@ public class ComponentGrid {
 
 	public void onClick(InventoryClickEvent event){
 		Component component = grid[event.getSlot()];
-		if(component == null) return;
+		if(component == null) {
+			event.setCancelled(true);
+			return;
+		}
 
 		int slot = component.getSlots().getSlotIndex(event.getSlot());
 		component.onComponentClick(event, slot);
