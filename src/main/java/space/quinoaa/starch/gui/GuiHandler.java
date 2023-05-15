@@ -23,6 +23,7 @@
 
 package space.quinoaa.starch.gui;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GuiHandler implements Listener {
-	private Map<InventoryView, Gui> openedGui = new HashMap<>();
+	private final Map<InventoryView, Gui> openedGui = new HashMap<>();
 	private JavaPlugin plugin;
 
 	/**
@@ -45,6 +46,7 @@ public class GuiHandler implements Listener {
 	 */
 	public void init(JavaPlugin plugin){
 		if(this.plugin != null) throw new IllegalStateException("Already initialized");
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 		this.plugin = plugin;
 	}
 
