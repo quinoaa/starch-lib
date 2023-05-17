@@ -7,3 +7,6 @@ I got annoyed writing same code again.
 
 ## Todo list
 [ ] Add documentation
+[ ] Add unit tests
+[ ] Find improvements
+[ ] Make this README.md look better
