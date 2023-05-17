@@ -6,7 +6,7 @@ It's a spigot plugin library providing basic code for inventories, commands, ...
 I got annoyed writing same code again.
 
 ## Todo list
-[ ] Add documentation
-[ ] Add unit tests
-[ ] Find improvements
-[ ] Make this README.md look better
+ - [ ] Add documentation
+ - [ ] Add unit tests
+ - [ ] Find improvements
+ - [ ] Make this README.md look better
