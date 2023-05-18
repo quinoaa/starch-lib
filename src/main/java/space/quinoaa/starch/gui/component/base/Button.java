@@ -23,28 +23,24 @@
 
 package space.quinoaa.starch.gui.component.base;
 
+import lombok.NonNull;
+import lombok.Setter;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import space.quinoaa.starch.gui.component.Component;
 
-public class Button extends Component {
-	final ItemProvider itemProvider;
-	final ClickHandler clickHandler;
+public class Button extends Label {
+	private final ClickHandler clickHandler;
 
 	public Button(ItemStack item, ClickHandler clickHandler) {
-		this.itemProvider = i->item;
+		super(item);
 		this.clickHandler = clickHandler;
 	}
 
-	public Button(ItemProvider itemProvider, ClickHandler clickHandler) {
-		this.itemProvider = itemProvider;
+	public Button(@NotNull ItemProvider itemProvider, ClickHandler clickHandler) {
+		super(itemProvider);
 		this.clickHandler = clickHandler;
-	}
-
-
-	@Override
-	public void init() {
-		getPainter().getSlots().iterateIndexes(index->getPainter().setItem(index, itemProvider.getItemStack(index)));
 	}
 
 	@Override

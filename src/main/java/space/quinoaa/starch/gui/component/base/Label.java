@@ -23,6 +23,7 @@
 
 package space.quinoaa.starch.gui.component.base;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -30,15 +31,30 @@ import space.quinoaa.starch.gui.component.Component;
 
 @RequiredArgsConstructor
 public class Label extends Component {
-	final ItemProvider itemProvider;
+	private @NonNull ItemProvider itemProvider;
 
 	public Label(ItemStack item) {
 		itemProvider = i->item;
 	}
 
+
+	public void setItemProvider(@NonNull ItemProvider provider){
+		itemProvider = provider;
+		redraw();
+	}
+
+	public void setItem(ItemStack item){
+		setItemProvider(i->item);
+	}
+
+	public void redraw(){
+		getPainter().getSlots().iterateIndexes(index->getPainter().setItem(index, itemProvider.getItemStack(index)));
+	}
+
+
 	@Override
 	public void init() {
-		getPainter().getSlots().iterateIndexes(index->getPainter().setItem(index, itemProvider.getItemStack(index)));
+		redraw();
 	}
 
 	@Override
