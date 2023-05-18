@@ -89,7 +89,10 @@ public class ObjectList<T> extends Component {
 
 		getSlots().iterateIndexes(index->{
 			int listIndex = index + startIndex;
-			if(listIndex < 0 || listIndex >= objects.size()) painter.setItem(index, emptyItem);
+			if(objects == null || listIndex < 0 || listIndex >= objects.size()) {
+				painter.setItem(index, emptyItem);
+				return;
+			}
 
 			ItemStack item = itemRenderer.apply(objects.get(listIndex));
 			painter.setItem(index, item);
