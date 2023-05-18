@@ -48,6 +48,7 @@ public class Label extends Component {
 	}
 
 	public void redraw(){
+		if(!isInitialized()) return;
 		getPainter().getSlots().iterateIndexes(index->getPainter().setItem(index, itemProvider.getItemStack(index)));
 	}
 
