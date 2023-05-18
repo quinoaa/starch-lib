@@ -36,11 +36,15 @@ public abstract class Component {
 	@Getter private SlotSet slots;
 
 	public final void init(Painter painter){
-		if(this.slots != null) throw new IllegalStateException("Already initialized");
+		if(this.painter != null) throw new IllegalStateException("Already initialized");
 
 		this.painter = painter;
 		this.slots = painter.getSlots();
 		init();
+	}
+
+	public final boolean isInitialized(){
+		return painter != null;
 	}
 
 	public abstract void init();
