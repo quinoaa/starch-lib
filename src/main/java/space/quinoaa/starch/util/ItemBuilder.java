@@ -33,24 +33,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemBuilder {
-	ItemStack item;
-	ItemMeta meta;
+	private final ItemStack item;
+	private final ItemMeta meta;
 	private List<String> lore;
 
 	public ItemBuilder(ItemStack item) {
 		this.item = item.clone();
+		meta = item.getItemMeta();
 	}
 
 	public ItemBuilder(Material material) {
 		this.item = new ItemStack(material);
+		meta = item.getItemMeta();
 	}
 
 	public ItemBuilder(Material material, int count) {
 		this.item = new ItemStack(material, count);
+		meta = item.getItemMeta();
 	}
 
 	public ItemBuilder(Material material, int count, short damage) {
 		this.item = new ItemStack(material, count, damage);
+		meta = item.getItemMeta();
 	}
 
 
@@ -65,7 +69,7 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder appendLore(String line){
-		if(lore == null) lore = new ArrayList<>(meta.getLore());
+		if(lore == null) lore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
 		lore.add(line);
 		return this;
 	}
