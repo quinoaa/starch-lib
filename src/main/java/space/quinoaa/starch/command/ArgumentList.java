@@ -48,11 +48,6 @@ public class ArgumentList {
 		return arguments.length > next;
 	}
 
-	public void retreatIndex(){
-		next--;
-		if(next < 0) next = 0;
-	}
-
 	@Override
 	public String toString() {
 		return "{nextIndex: " + next + ", " + Arrays.asList(arguments) + "}";
