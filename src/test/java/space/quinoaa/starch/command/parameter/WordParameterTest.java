@@ -23,15 +23,7 @@
 
 package space.quinoaa.starch.command.parameter;
 
-import be.seeseemelk.mockbukkit.MockBukkit;
-import be.seeseemelk.mockbukkit.MockPlugin;
-import be.seeseemelk.mockbukkit.ServerMock;
-import be.seeseemelk.mockbukkit.entity.PlayerMock;
-import org.bukkit.command.Command;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import space.quinoaa.starch.command.ArgumentList;
 import space.quinoaa.starch.command.ExecutionSpec;
 import space.quinoaa.starch.command.executor.parameter.WordParameter;
@@ -42,25 +34,11 @@ import java.util.List;
 import java.util.Set;
 
 public class WordParameterTest {
-	final String alias = "testcmd";
-	ServerMock server;
-	PlayerMock player;
-	MockPlugin plugin;
-	Command cmd;
-
-
-	@Before
-	public void prepare(){
-		server = MockBukkit.mock();
-		player = server.addPlayer();
-		plugin = MockBukkit.createMockPlugin("idontknow");
-		cmd = plugin.getCommand(alias);
-	}
 
 	@Test
 	public void testExecute(){
 		final String[] args = {"one", "two", "three"};
-		ExecutionSpec spec = new ExecutionSpec(player, cmd, alias, new ArgumentList(args));
+		ExecutionSpec spec = new ExecutionSpec(null, null, null, new ArgumentList(args));
 
 		for (int i = 0; i < args.length; i++) {
 			WordParameter word = new WordParameter();
@@ -74,7 +52,7 @@ public class WordParameterTest {
 	@Test
 	public void testSpecificValid(){
 		final String[] args = {"allowed"};
-		ExecutionSpec spec = new ExecutionSpec(player, cmd, alias, new ArgumentList(args));
+		ExecutionSpec spec = new ExecutionSpec(null, null, null, new ArgumentList(args));
 
 		WordParameter param = new WordParameter();
 		Set<String> available = new HashSet<>();
@@ -90,7 +68,7 @@ public class WordParameterTest {
 	@Test
 	public void testSpecificInvalid(){
 		final String[] args = {"not_allowed"};
-		ExecutionSpec spec = new ExecutionSpec(player, cmd, alias, new ArgumentList(args));
+		ExecutionSpec spec = new ExecutionSpec(null, null, null, new ArgumentList(args));
 
 		WordParameter param = new WordParameter();
 		Set<String> available = new HashSet<>();
@@ -106,7 +84,7 @@ public class WordParameterTest {
 	@Test
 	public void testComplete(){
 		final String[] args = {"start"};
-		ExecutionSpec spec = new ExecutionSpec(player, cmd, alias, new ArgumentList(args));
+		ExecutionSpec spec = new ExecutionSpec(null, null, null, new ArgumentList(args));
 
 		WordParameter param = new WordParameter();
 		Assertions.assertEquals(param.getComplete(spec).size(), 0);
@@ -116,7 +94,7 @@ public class WordParameterTest {
 	public void testCompleteSpecific(){
 		final String[] args = {"start"};
 		Set<String> available = new HashSet<>(Arrays.asList("idk", "start_one", "start_two", "other"));
-		ExecutionSpec spec = new ExecutionSpec(player, cmd, alias, new ArgumentList(args));
+		ExecutionSpec spec = new ExecutionSpec(null, null, null, new ArgumentList(args));
 
 		WordParameter param = new WordParameter();
 		param.setAvailableWords(available);
@@ -128,8 +106,4 @@ public class WordParameterTest {
 		Assertions.assertFalse(ret.contains("idk"));
 	}
 
-	@After
-	public void dispose(){
-		MockBukkit.unmock();
-	}
 }
