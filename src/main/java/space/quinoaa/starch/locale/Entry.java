@@ -34,12 +34,12 @@ public class Entry {
 		this.isValid = message != null;
 
 		if(isValid) currentMessage = message;
-		else currentMessage = "invalid key " + key + "(";
+		else currentMessage = "invalid key " + key + "(replace:";
 	}
 
 	public Entry replace(String key, String value){
 		if(isValid) currentMessage = currentMessage.replace(key, value);
-		else currentMessage = currentMessage + key + ": " + value;
+		else currentMessage = " " + currentMessage + key + ": " + value;
 		return this;
 	}
 
