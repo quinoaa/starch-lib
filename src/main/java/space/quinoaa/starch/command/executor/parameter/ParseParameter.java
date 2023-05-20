@@ -49,10 +49,12 @@ public class ParseParameter<T> implements Parameter<T> {
 
 		try{
 			T parsed = parser.apply(raw);
-			if(!available.contains(parsed)) return;
+			if(available != null && !available.contains(parsed)) return;
 
 			this.parsed = parsed;
-		}catch (RuntimeException ignored){ }
+		}catch (RuntimeException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -87,24 +89,35 @@ public class ParseParameter<T> implements Parameter<T> {
 				.collect(Collectors.toList());
 	}
 
+
+	private static <A, B> Function<A, B> trycatchNumber(Function<A, B> function){
+		return str->{
+			try {
+				return function.apply(str);
+			}catch (NumberFormatException ignored){
+				return null;
+			}
+		};
+	}
+
 	public static class Int extends ParseParameter<Integer>{
 
 		public Int() {
-			super(Integer::parseInt);
+			super(ParseParameter.trycatchNumber(Integer::parseInt));
 		}
 	}
 
 	public static class Double extends ParseParameter<java.lang.Double>{
 
 		public Double() {
-			super(java.lang.Double::parseDouble);
+			super(ParseParameter.trycatchNumber(java.lang.Double::parseDouble));
 		}
 	}
 
 	public static class Long extends ParseParameter<java.lang.Long>{
 
 		public Long() {
-			super(java.lang.Long::parseLong);
+			super(ParseParameter.trycatchNumber(java.lang.Long::parseLong));
 		}
 	}
 
