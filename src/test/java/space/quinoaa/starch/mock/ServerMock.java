@@ -59,17 +59,17 @@ public class ServerMock implements Server {
 
 	@Override
 	public String getName() {
-		throw new UnsupportedOperationException("STUB");
+		return "bukkit mock";
 	}
 
 	@Override
 	public String getVersion() {
-		throw new UnsupportedOperationException("STUB");
+		return "stub";
 	}
 
 	@Override
 	public String getBukkitVersion() {
-		throw new UnsupportedOperationException("STUB");
+		return "stub";
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class ServerMock implements Server {
 
 	@Override
 	public Logger getLogger() {
-		throw new UnsupportedOperationException("STUB");
+		return Logger.getLogger("bukkit mock");
 	}
 
 	@Override
@@ -508,12 +508,12 @@ public class ServerMock implements Server {
 	}
 
 	@Override
-	public CachedServerIcon loadServerIcon(File file) throws IllegalArgumentException, Exception {
+	public CachedServerIcon loadServerIcon(File file) {
 		throw new UnsupportedOperationException("STUB");
 	}
 
 	@Override
-	public CachedServerIcon loadServerIcon(BufferedImage bufferedImage) throws IllegalArgumentException, Exception {
+	public CachedServerIcon loadServerIcon(BufferedImage bufferedImage) {
 		throw new UnsupportedOperationException("STUB");
 	}
 
