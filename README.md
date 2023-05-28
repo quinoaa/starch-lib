@@ -1,14 +1,41 @@
 # Starch Lib
 
-An util library with ABSOLUTELY ZERO REFLECTION.
+An util library with no reflection.
+Provides basic code for inventories, commands, ...
 
-It's a spigot plugin library providing basic code for inventories, commands, ...
-I got annoyed writing same code again.
+## Todo
 
-## Maven
+ - [ ] Test objectlist for gui
+ - [ ] Add comments
+
+## Adding
+
+
+
+<details>
+<summary>Maven Artifact</summary>
+
+```xml
+
+<repository>
+  <id>quinoaa-repository-public</id>
+  <name>Quinoaa Repository</name>
+  <url>https://maven.quinoaa.space/public</url>
+</repository>
+
+<dependency>
+  <groupId>space.quinoaa</groupId>
+  <artifactId>starch-lib</artifactId>
+  <version>0.1</version>
+</dependency>
+
+```
+</details>
+
+<details>
+<summary>Maven Shade</summary>
 
 You should shade this artifact
-
 ```xml
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -26,6 +53,19 @@ You should shade this artifact
                     </execution>
                 </executions>
                 <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>space.quinoaa:starch-lib</include>
+                        </includes>
+                    </artifactSet>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>META-INF/**</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
                     <relocations>
                         <relocation>
                             <pattern>space.quinoaa.starch</pattern>
@@ -35,6 +75,7 @@ You should shade this artifact
                 </configuration>
             </plugin>
 ```
+</details>
 
 
 ## Todo list
