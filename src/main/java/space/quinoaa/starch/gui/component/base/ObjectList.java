@@ -34,6 +34,10 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/**
+ * Has not been tested
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class ObjectList<T> extends Component {
 	private final Function<T, ItemStack> itemRenderer;
