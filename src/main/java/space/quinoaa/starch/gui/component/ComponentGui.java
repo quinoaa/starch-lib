@@ -24,6 +24,7 @@
 package space.quinoaa.starch.gui.component;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -67,6 +68,10 @@ public class ComponentGui implements Gui {
 
 	@Override
 	public void onClick(InventoryClickEvent event) {
+		if(event.getClick() != ClickType.LEFT && event.getClick() != ClickType.RIGHT) {
+			event.setCancelled(true);
+			return;
+		}
 		if(event.getClickedInventory() != event.getView().getTopInventory()) return;
 
 		grid.onClick(event);
