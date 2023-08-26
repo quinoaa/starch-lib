@@ -25,10 +25,8 @@
 
 package space.quinoaa.starch.command;
 
-import org.bukkit.command.Command;
+import org.bukkit.command.*;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 
 import java.util.List;
 
@@ -47,5 +45,10 @@ public interface CommandHandler extends CommandExecutor, TabCompleter {
     @Override
     default List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
         return complete(new Context(commandSender, command, s, strings));
+    }
+
+    default void register(PluginCommand command){
+        command.setExecutor(this);
+        command.setTabCompleter(this);
     }
 }
