@@ -75,17 +75,22 @@ public class WordArgument extends SingleArgument {
 		return new WordArgument(str->true, null);
 	}
 
+	public static WordArgument any(Set<String> suggest){
+		return new WordArgument(str->true, suggest);
+	}
+
 	public static WordArgument filtered(Predicate<String> filter){
 		return new WordArgument(filter, null);
 	}
 
-	public static WordArgument choice(Set<String> choices){
+	public static WordArgument filtered(Set<String> suggest, Predicate<String> filter){
+		return new WordArgument(filter, suggest);
+	}
+
+	public static WordArgument ofSet(Set<String> choices){
 		return new WordArgument(choices::contains, choices);
 	}
 
-	public static WordArgument filteredChoice(Set<String> choices, Predicate<String> filter){
-		return new WordArgument(filter.and(choices::contains), choices);
-	}
 }
 
 
