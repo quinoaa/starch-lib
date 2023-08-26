@@ -55,6 +55,8 @@ public class NumberArgument<T extends Number> extends SingleArgument {
 	@Override
 	protected void parse(Context context, @Nullable String argument) {
 		parsed = null;
+		if(argument == null) return;
+
 		try{
 			this.parsed = parser.apply(argument);
 		}catch (NumberFormatException ignored) {}

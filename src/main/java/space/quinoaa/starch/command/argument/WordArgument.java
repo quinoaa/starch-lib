@@ -56,6 +56,7 @@ public class WordArgument extends SingleArgument {
 	@Override
 	protected void parse(Context context, @Nullable String argument) {
 		value = null;
+		if(argument == null) return;
 		if(!check.test(argument)) return;
 
 		value = argument;
