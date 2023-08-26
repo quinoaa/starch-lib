@@ -46,7 +46,7 @@ public class Context {
 
 
     public @Nullable String getNextArgument(){
-        if(hasNextArgument()) return null;
+        if(!hasNextArgument()) return null;
         String argument = arguments[argumentIndex];
         argumentIndex++;
 

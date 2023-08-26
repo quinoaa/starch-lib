@@ -27,10 +27,7 @@ package space.quinoaa.starch.command;
 
 import org.bukkit.permissions.Permission;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -63,16 +60,22 @@ public class CommandNode implements CommandHandler {
         String arg = context.getNextArgument();
         if(arg == null) return new ArrayList<>(handlers.keySet());
 
-        List<String> completion = new ArrayList<>();
+        if(context.hasNextArgument()){
+            CommandHandler handler = handlers.get(arg);
+            if(handler == null) return Collections.emptyList();
+            else return handler.complete(context);
+        }else{
+            List<String> completion = new ArrayList<>();
 
-        handlers.forEach((key, handler)->{
-            if(!key.startsWith(arg)) return;
-            if(!handler.hasPermission(context)) return;
+            handlers.forEach((key, handler)->{
+                if(!key.startsWith(arg)) return;
+                if(!handler.hasPermission(context)) return;
 
-            completion.add(key);
-        });
+                completion.add(key);
+            });
 
-        return completion;
+            return completion;
+        }
     }
 
     @Override

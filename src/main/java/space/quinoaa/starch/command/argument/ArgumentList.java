@@ -40,7 +40,7 @@ public class ArgumentList {
     public <T extends Argument> T add(T argument){
         argument.parse(context);
 
-        if(!context.hasNextArgument() && firstEmpty != null) firstEmpty = argument;
+        if(!context.hasNextArgument() && firstEmpty == null) firstEmpty = argument;
 
         return argument;
     }
